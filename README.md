@@ -15,4 +15,8 @@ file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 # Acknowledgements
 
-- This project is an independent continuation of [pizzimathy/bookend](https://github.com/pizzimathy/bookend), which was the previous codebase for the "bookend" package on PyPI. On 2022-08-19, that repo was duplicated in order to preserve the contribution entries of its author.
+- This project is an independent continuation of
+  [pizzimathy/bookend](https://github.com/pizzimathy/bookend),
+  which was the previous codebase for the "bookend" package on PyPI.
+  On 2022-08-19, that repo was duplicated in order to preserve
+  the contribution entries of its author.
