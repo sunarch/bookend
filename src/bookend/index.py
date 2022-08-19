@@ -1,84 +1,79 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8, vim: expandtab:ts=4 -*-
+
+# previous license:
 # Copyright (c) 2016 Anthony Pizzimenti - The MIT License (MIT)
 
-import os
-import os.path as p
-import bookend.files as f
-import argparse
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-from json import dumps
+# imports: library
+import json
+import os.path
+
+# imports: project
 from bookend.book import BookEncoder, Book
+from bookend import files
 
-path = os.path.join(os.path.dirname(os.path.realpath(__file__)), "lists.json")
 
+def init():
 
-def init(args):
+    path = os.path.join(os.path.dirname(os.path.realpath(__file__)), "lists.json")
 
     # no lists exist -> make a new list
-    if not p.isfile(path):
+    if not os.path.isfile(path):
 
         print("You don't have any booklists!")
 
-        f.makefile(path)
+        files.makefile(path)
 
         books = {
             "books": []
         }
 
         with open(path, "w") as file:
-            file.write(dumps(books))
-
-        if args.add:
-            book = Book()
-            encoder = BookEncoder()
-            encoder.encode(book.__dict__)
-
-    elif args.search:
-
-        decoder = BookEncoder()
-        decoder.decode()
-        results = []
-
-        for book in decoder.collection:
-
-            s = args.search.lower()
-
-            if s in book["title"].lower():
-                results.append(Book.formatbook(book, "title"))
-            elif s in book["author"].lower():
-                results.append(Book.formatbook(book, "author"))
-            elif s in book["booklist"].lower():
-                results.append(Book.formatbook(book, "booklist"))
-
-        for book in results:
-            print(book)
-
-    elif args.add:
-
-        book = Book()
-        encoder = BookEncoder()
-        encoder.encode(book.__dict__)
-
-    elif args.list:
-
-        decoder = BookEncoder()
-        decoder.decode()
-
-        for book in decoder.collection:
-            print(Book.formatbook(book))
-
-    elif args.checkout:
-
-        decoder = BookEncoder()
-        decoder.remove(args.checkout)
+            file.write(json.dumps(books))
 
 
-def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("-s", "--search", help="'-s <term>' to search for a term across all lists")
-    parser.add_argument("-l", "--list", help="prints a list of booklists", action="store_true")
-    parser.add_argument("-a", "--add", help="add a new book!", action="store_true")
-    parser.add_argument("-c", "--checkout", help="enter the title of a book, and it'll be removed from the list")
-    parsed = parser.parse_args()
+def arg_search(term):
 
-    init(parsed)
+    decoder = BookEncoder()
+    decoder.decode()
+    results = []
+
+    for book in decoder.collection:
+
+        s = term.lower()
+
+        if s in book["title"].lower():
+            results.append(Book.formatbook(book, "title"))
+        elif s in book["author"].lower():
+            results.append(Book.formatbook(book, "author"))
+        elif s in book["booklist"].lower():
+            results.append(Book.formatbook(book, "booklist"))
+
+    for book in results:
+        print(book)
+
+
+def arg_list():
+
+    decoder = BookEncoder()
+    decoder.decode()
+
+    for book in decoder.collection:
+        print(Book.formatbook(book))
+
+
+def arg_add():
+
+    book = Book()
+    encoder = BookEncoder()
+    encoder.encode(book.__dict__)
+
+
+def arg_checkout(title):
+
+    decoder = BookEncoder()
+    decoder.remove(title)
