@@ -41,19 +41,19 @@ def init():
 
 def arg_search(term):
 
+    search_term = term.lower()
+
     decoder = BookEncoder()
     decoder.decode()
     results = []
 
     for book in decoder.collection:
 
-        s = term.lower()
-
-        if s in book['title'].lower():
+        if search_term in book['title'].lower():
             results.append(Book.formatbook(book, 'title'))
-        elif s in book['author'].lower():
+        elif search_term in book['author'].lower():
             results.append(Book.formatbook(book, 'author'))
-        elif s in book['booklist'].lower():
+        elif search_term in book['booklist'].lower():
             results.append(Book.formatbook(book, 'booklist'))
 
     for book in results:
