@@ -30,7 +30,7 @@ def init():
         }
 
         with open(path, 'w', encoding='UTF-8') as fh_list:
-            fh_list.write(json.dumps(books))
+            json.dump(books, fh_list)
 
         path_last = path.split(os.pathsep)[-1]
         print('Created new list file at ', path_last)

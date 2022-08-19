@@ -53,7 +53,7 @@ class BookEncoder:
         with open(self.path, 'r', encoding='UTF-8') as fh_list:
 
             try:
-                books = json.loads(fh_list.read())
+                books = json.load(fh_list)
                 books['books'].append(book)
             except KeyError or ValueError:
                 print('There was an error reading the list file.')
@@ -61,7 +61,7 @@ class BookEncoder:
         with open(self.path, 'w', encoding='UTF-8') as fh_list:
 
             try:
-                fh_list.write(json.dumps(books))
+                json.dump(books, fh_list)
             except:
                 print('There was an error writing to the list file.')
 
@@ -73,7 +73,7 @@ class BookEncoder:
                 'books': self.collection
             }
 
-            fh_list.write(json.dumps(replace))
+            json.dump(replace, fh_list)
 
     def decode(self):
 
@@ -81,7 +81,7 @@ class BookEncoder:
         with open(self.path, 'r', encoding='UTF-8') as fh_list:
 
             try:
-                self.collection = json.loads(fh_list.read())['books']
+                self.collection = json.load(fh_list)['books']
             except ValueError:
                 print('\nThe file\'s empty! You have no books.\n')
             finally:
