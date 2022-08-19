@@ -22,8 +22,8 @@ def makefolder(path):
 
 
 def makefile(path):
-    file = open(path, 'w', encoding='UTF-8')
-    file.close()
+    with open(path, 'w', encoding='UTF-8'):
+        pass
 
     print('Created new list file at ', getlast(path))
 

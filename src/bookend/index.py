@@ -32,8 +32,8 @@ def init():
             'books': []
         }
 
-        with open(path, 'w', encoding='UTF-8') as file:
-            file.write(json.dumps(books))
+        with open(path, 'w', encoding='UTF-8') as fh_list:
+            fh_list.write(json.dumps(books))
 
 
 def arg_search(term):
