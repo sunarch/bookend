@@ -25,18 +25,15 @@ def init():
 
         print('You don\'t have any booklists!')
 
-        # create empty data file
-        with open(path, 'w', encoding='UTF-8'):
-            pass
-        path_last = path.split(os.pathsep)[-1]
-        print('Created new list file at ', path_last)
-
         books = {
             'books': []
         }
 
         with open(path, 'w', encoding='UTF-8') as fh_list:
             fh_list.write(json.dumps(books))
+
+        path_last = path.split(os.pathsep)[-1]
+        print('Created new list file at ', path_last)
 
 
 def arg_search(term):
