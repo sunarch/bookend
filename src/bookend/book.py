@@ -51,18 +51,18 @@ class BookEncoder:
         books = {}
 
         with open(self.path, 'r', encoding='UTF-8') as fh_list:
-
             try:
                 books = json.load(fh_list)
                 books['books'].append(book)
-            except KeyError or ValueError:
+            except KeyError:
+                print('List file could nor be read (missing key).')
+            except ValueError:
                 print('There was an error reading the list file.')
 
         with open(self.path, 'w', encoding='UTF-8') as fh_list:
-
             try:
                 json.dump(books, fh_list)
-            except:
+            except RuntimeError:
                 print('There was an error writing to the list file.')
 
     def encodecollection(self):
