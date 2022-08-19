@@ -3,6 +3,15 @@ bookend
 
 A program to keep track of one's books
 
+### Installation
+
+Available on PyPI: [bookend](https://pypi.org/project/bookend/)
+
+```commandline
+pip install bookend
+```
+
+
 ### usage from pizzimathy/bookend
 
 `$ bookend [-a | --add]`
