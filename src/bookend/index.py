@@ -14,7 +14,6 @@ import os.path
 
 # imports: project
 from bookend.book import BookEncoder, Book
-from bookend import files
 
 
 def init():
@@ -26,7 +25,11 @@ def init():
 
         print('You don\'t have any booklists!')
 
-        files.makefile(path)
+        # create empty data file
+        with open(path, 'w', encoding='UTF-8'):
+            pass
+        path_last = path.split(os.pathsep)[-1]
+        print('Created new list file at ', path_last)
 
         books = {
             'books': []
