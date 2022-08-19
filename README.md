@@ -3,7 +3,7 @@ bookend
 
 A program to keep track of one's books
 
-### usage from pizzimathy/bookend (not integrated yet)
+### usage from pizzimathy/bookend
 
 `$ bookend [-a | --add]`
 Prompts for a new book to be added to the list.
