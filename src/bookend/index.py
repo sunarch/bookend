@@ -32,7 +32,7 @@ def init():
             'books': []
         }
 
-        with open(path, 'w') as file:
+        with open(path, 'w', encoding='UTF-8') as file:
             file.write(json.dumps(books))
 
 

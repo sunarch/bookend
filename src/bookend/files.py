@@ -22,7 +22,7 @@ def makefolder(path):
 
 
 def makefile(path):
-    file = open(path, 'w')
+    file = open(path, 'w', encoding='UTF-8')
     file.close()
 
     print('Created new list file at ', getlast(path))
@@ -30,5 +30,5 @@ def makefile(path):
 
 def write(content, path='lists.json'):
 
-    with open(path, 'w') as file:
+    with open(path, 'w', encoding='UTF-8') as file:
         file.write(content)

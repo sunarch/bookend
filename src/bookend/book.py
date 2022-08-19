@@ -50,7 +50,7 @@ class BookEncoder:
 
         books = {}
 
-        with open(self.path, 'r') as f:
+        with open(self.path, 'r', encoding='UTF-8') as f:
 
             try:
                 books = json.loads(f.read())
@@ -58,7 +58,7 @@ class BookEncoder:
             except KeyError or ValueError:
                 print('There was an error reading the list file.')
 
-        with open(self.path, 'w') as f:
+        with open(self.path, 'w', encoding='UTF-8') as f:
 
             try:
                 f.write(json.dumps(books))
@@ -67,7 +67,7 @@ class BookEncoder:
 
     def encodecollection(self):
 
-        with open(self.path, 'w') as f:
+        with open(self.path, 'w', encoding='UTF-8') as f:
 
             replace = {
                 'books': self.collection
@@ -78,7 +78,7 @@ class BookEncoder:
     def decode(self):
 
         # opens list file and reads each book out of it
-        with open(self.path, 'r') as f:
+        with open(self.path, 'r', encoding='UTF-8') as f:
 
             try:
                 self.collection = json.loads(f.read())['books']
