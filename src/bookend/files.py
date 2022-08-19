@@ -18,17 +18,17 @@ def getlast(path):
 
 def makefolder(path):
     os.makedirs(path)
-    print("directory created at /", getlast(path))
+    print('directory created at /', getlast(path))
 
 
 def makefile(path):
-    file = open(path, "w")
+    file = open(path, 'w')
     file.close()
 
-    print("Created new list file at ", getlast(path))
+    print('Created new list file at ', getlast(path))
 
 
-def write(content, path="lists.json"):
+def write(content, path='lists.json'):
 
-    with open(path, "w") as file:
+    with open(path, 'w') as file:
         file.write(content)

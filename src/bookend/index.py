@@ -19,20 +19,20 @@ from bookend import files
 
 def init():
 
-    path = os.path.join(os.path.dirname(os.path.realpath(__file__)), "lists.json")
+    path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'lists.json')
 
     # no lists exist -> make a new list
     if not os.path.isfile(path):
 
-        print("You don't have any booklists!")
+        print('You don\'t have any booklists!')
 
         files.makefile(path)
 
         books = {
-            "books": []
+            'books': []
         }
 
-        with open(path, "w") as file:
+        with open(path, 'w') as file:
             file.write(json.dumps(books))
 
 
@@ -46,12 +46,12 @@ def arg_search(term):
 
         s = term.lower()
 
-        if s in book["title"].lower():
-            results.append(Book.formatbook(book, "title"))
-        elif s in book["author"].lower():
-            results.append(Book.formatbook(book, "author"))
-        elif s in book["booklist"].lower():
-            results.append(Book.formatbook(book, "booklist"))
+        if s in book['title'].lower():
+            results.append(Book.formatbook(book, 'title'))
+        elif s in book['author'].lower():
+            results.append(Book.formatbook(book, 'author'))
+        elif s in book['booklist'].lower():
+            results.append(Book.formatbook(book, 'booklist'))
 
     for book in results:
         print(book)
