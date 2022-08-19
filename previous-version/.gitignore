@@ -1,6 +1,0 @@
-.idea
-*.json
-*.DS_Store
-*.egg-info
-bookend/__pycache__/*
-dist

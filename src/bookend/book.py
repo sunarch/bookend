@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# Copyright (c) 2016 Anthony Pizzimenti - The MIT License (MIT)
 
 import os
 import json

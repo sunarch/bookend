@@ -1,3 +1,4 @@
+# Copyright (c) 2016 Anthony Pizzimenti - The MIT License (MIT)
 
 import os
 
