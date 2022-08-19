@@ -18,14 +18,14 @@ def getlast(path):
 
 def makefolder(path):
     os.makedirs(path)
-    print("directory created at /{}".format(getlast(path)))
+    print("directory created at /", getlast(path))
 
 
 def makefile(path):
     file = open(path, "w")
     file.close()
 
-    print("Created new list file at {}".format(getlast(path)))
+    print("Created new list file at ", getlast(path))
 
 
 def write(content, path="lists.json"):

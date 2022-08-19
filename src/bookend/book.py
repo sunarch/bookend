@@ -30,12 +30,12 @@ class Book:
         author = colored(book["author"], "green") if param == "author" else book["author"]
         booklist = colored(book["booklist"], "green") if param == "booklist" else book["booklist"]
 
-        formatted = """
-        Title:\t\t{0}
-        Author:\t\t{1}
-        Call Number:\t{2}
-        List:\t\t{3}
-        """.format(title, author, book["callnumber"], booklist)
+        formatted = f'''
+        Title:\t\t{title}
+        Author:\t\t{author}
+        Call Number:\t{book["callnumber"]}
+        List:\t\t{booklist}
+        '''
 
         return formatted
 
