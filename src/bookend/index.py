@@ -13,7 +13,8 @@ import json
 import os.path
 
 # imports: project
-from bookend.book import BookEncoder, Book
+from bookend.book import Book
+from bookend.bookencoder import BookEncoder
 
 
 def init():
