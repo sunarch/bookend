@@ -38,7 +38,7 @@ def arg_search(book_list_path, term):
 
         found_in_fields = []
 
-        for prop in book.searchable_properties():
+        for prop in book.properties_searchable():
             if search_term in book_item[prop].lower():
                 found_in_fields.append(prop)
 

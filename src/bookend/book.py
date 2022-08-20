@@ -12,31 +12,54 @@ import os
 from termcolor import colored
 
 
-def input_book():
-    title = input('Title: ')
-    author = input('Author: ')
-    call_number = input('Call Number: ')
-    booklist = input('List Name: ')
-
-    return create_book(
-        title=title,
-        author=author,
-        call_number=call_number,
-        booklist=booklist
-    )
-
-
-def create_book(title, author, call_number, booklist):
-    return {
-        'title': title,
-        'author': author,
-        'call_number': call_number,
-        'booklist': booklist
+fields = [
+    {
+        'name': 'title',
+        'prompt': 'Title',
+        'searchable': True
+    },
+    {
+        'name': 'author',
+        'prompt': 'Author',
+        'searchable': True
+    },
+    {
+        'name': 'call_number',
+        'prompt': 'Call Number',
+        'searchable': False
+    },
+    {
+        'name': 'booklist',
+        'prompt': 'List Name',
+        'searchable': True
     }
+]
 
 
-def searchable_properties():
-    return {'title', 'author', 'booklist'}
+def properties():
+    return list(map(lambda x: x['name'], fields))
+
+
+def properties_searchable():
+    searchable_props = set(map(lambda x: x['name'] if x['searchable'] else None, fields))
+    searchable_props.remove(None)
+    return searchable_props
+
+
+def input_book():
+    prop_items = {}
+
+    for field in fields:
+        prop_items[field['name']] = input(field['prompt'] + ': ')
+
+    return create_book(**prop_items)
+
+
+def create_book(**kwargs):
+    if not set(kwargs.keys()) == set(properties()):
+        raise KeyError('Unrecognized key in book creation')
+
+    return kwargs
 
 
 def formatted(book, highlight=None):
@@ -44,23 +67,12 @@ def formatted(book, highlight=None):
     if not isinstance(highlight, list):
         highlight = []
 
-    title = book['title']
-    if 'title' in highlight:
-        title = colored(book['title'], 'green')
+    def format_item(field):
+        prop = book[field['name']]
+        if field['searchable'] and field['name'] in highlight:
+            prop = colored(book[field['name']], 'green')
+        return ' ' * 4 + f'{field["prompt"]:<13}{prop}'
 
-    author = book['author']
-    if 'author' in highlight:
-        author = colored(book['author'], 'green')
-
-    booklist = book['booklist']
-    if 'booklist' in highlight:
-        booklist = colored(book['booklist'], 'green')
-
-    result = (
-        ' ' * 4 + f'{"Title:":<13}{title}',
-        ' ' * 4 + f'{"Author:":<13}{author}',
-        ' ' * 4 + f'{"Call Number:":<13}{book["call_number"]}',
-        ' ' * 4 + f'{"List:":<13}{booklist}'
-    )
+    result = list(map(format_item, fields))
 
     return '\n' + os.linesep.join(result)
