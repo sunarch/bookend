@@ -13,7 +13,7 @@ import json
 import os.path
 
 # imports: project
-from bookend.book import Book
+from bookend import book
 from bookend.bookencoder import BookEncoder
 
 
@@ -45,23 +45,23 @@ def arg_search(term):
     decoder.decode()
     results = []
 
-    for book in decoder.collection:
+    for book_item in decoder.collection:
 
         found_in_fields = []
 
-        if search_term in book['title'].lower():
+        if search_term in book_item['title'].lower():
             found_in_fields.append('title')
 
-        if search_term in book['author'].lower():
+        if search_term in book_item['author'].lower():
             found_in_fields.append('author')
 
-        if search_term in book['booklist'].lower():
+        if search_term in book_item['booklist'].lower():
             found_in_fields.append('booklist')
 
-        results.append(Book.formatted(book, found_in_fields))
+        results.append(book.formatted(book_item, found_in_fields))
 
-    for book in results:
-        print(book)
+    for book_item in results:
+        print(book_item)
 
 
 def arg_list():
@@ -69,15 +69,15 @@ def arg_list():
     decoder = BookEncoder()
     decoder.decode()
 
-    for book in decoder.collection:
-        print(Book.formatted(book))
+    for book_item in decoder.collection:
+        print(book.formatted(book_item))
 
 
 def arg_add():
 
-    book = Book()
+    book_item = book.input_book()
     encoder = BookEncoder()
-    encoder.encode(book.__dict__)
+    encoder.encode(book_item)
 
 
 def arg_checkout(title):

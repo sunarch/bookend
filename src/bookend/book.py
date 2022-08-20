@@ -12,30 +12,43 @@
 from termcolor import colored
 
 
-class Book:
+def input_book():
+    title = input('Title: ')
+    author = input('Author: ')
+    callnumber = input('Call Number: ')
+    booklist = input('List Name: ')
 
-    def __init__(self):
+    return create_book(
+        title=title,
+        author=author,
+        callnumber=callnumber,
+        booklist=booklist
+    )
 
-        self.title = input('Title: ')
-        self.author = input('Author: ')
-        self.callnumber = input('Call Number: ')
-        self.booklist = input('List Name: ')
 
-    @staticmethod
-    def formatted(book, highlight=None):
+def create_book(title, author, callnumber, booklist):
+    return {
+        'title': title,
+        'author': author,
+        'callnumber': callnumber,
+        'booklist': booklist
+    }
 
-        if not isinstance(highlight, list):
-            highlight = []
 
-        title = colored(book['title'], 'green') if 'title' in highlight else book['title']
-        author = colored(book['author'], 'green') if 'author' in highlight else book['author']
-        booklist = colored(book['booklist'], 'green') if 'booklist' in highlight else book['booklist']
+def formatted(book, highlight=None):
 
-        formatted = f'''
-        Title:\t\t{title}
-        Author:\t\t{author}
-        Call Number:\t{book["callnumber"]}
-        List:\t\t{booklist}
-        '''
+    if not isinstance(highlight, list):
+        highlight = []
 
-        return formatted
+    title = colored(book['title'], 'green') if 'title' in highlight else book['title']
+    author = colored(book['author'], 'green') if 'author' in highlight else book['author']
+    booklist = colored(book['booklist'], 'green') if 'booklist' in highlight else book['booklist']
+
+    result = f'''
+    Title:\t\t{title}
+    Author:\t\t{author}
+    Call Number:\t{book["callnumber"]}
+    List:\t\t{booklist}
+    '''
+
+    return result
