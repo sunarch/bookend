@@ -22,11 +22,14 @@ class Book:
         self.booklist = input('List Name: ')
 
     @staticmethod
-    def formatbook(book, param=None):
+    def formatted(book, highlight=None):
 
-        title = colored(book['title'], 'green') if param == 'title' else book['title']
-        author = colored(book['author'], 'green') if param == 'author' else book['author']
-        booklist = colored(book['booklist'], 'green') if param == 'booklist' else book['booklist']
+        if not isinstance(highlight, list):
+            highlight = []
+
+        title = colored(book['title'], 'green') if 'title' in highlight else book['title']
+        author = colored(book['author'], 'green') if 'author' in highlight else book['author']
+        booklist = colored(book['booklist'], 'green') if 'booklist' in highlight else book['booklist']
 
         formatted = f'''
         Title:\t\t{title}

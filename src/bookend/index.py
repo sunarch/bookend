@@ -47,12 +47,18 @@ def arg_search(term):
 
     for book in decoder.collection:
 
+        found_in_fields = []
+
         if search_term in book['title'].lower():
-            results.append(Book.formatbook(book, 'title'))
-        elif search_term in book['author'].lower():
-            results.append(Book.formatbook(book, 'author'))
-        elif search_term in book['booklist'].lower():
-            results.append(Book.formatbook(book, 'booklist'))
+            found_in_fields.append('title')
+
+        if search_term in book['author'].lower():
+            found_in_fields.append('author')
+
+        if search_term in book['booklist'].lower():
+            found_in_fields.append('booklist')
+
+        results.append(Book.formatted(book, found_in_fields))
 
     for book in results:
         print(book)
@@ -64,7 +70,7 @@ def arg_list():
     decoder.decode()
 
     for book in decoder.collection:
-        print(Book.formatbook(book))
+        print(Book.formatted(book))
 
 
 def arg_add():
