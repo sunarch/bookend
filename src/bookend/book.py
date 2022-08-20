@@ -15,22 +15,22 @@ from termcolor import colored
 def input_book():
     title = input('Title: ')
     author = input('Author: ')
-    callnumber = input('Call Number: ')
+    call_number = input('Call Number: ')
     booklist = input('List Name: ')
 
     return create_book(
         title=title,
         author=author,
-        callnumber=callnumber,
+        call_number=call_number,
         booklist=booklist
     )
 
 
-def create_book(title, author, callnumber, booklist):
+def create_book(title, author, call_number, booklist):
     return {
         'title': title,
         'author': author,
-        'callnumber': callnumber,
+        'call_number': call_number,
         'booklist': booklist
     }
 
@@ -47,7 +47,7 @@ def formatted(book, highlight=None):
     result = f'''
     Title:\t\t{title}
     Author:\t\t{author}
-    Call Number:\t{book["callnumber"]}
+    Call Number:\t{book["call_number"]}
     List:\t\t{booklist}
     '''
 
