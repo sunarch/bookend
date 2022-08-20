@@ -14,7 +14,7 @@ import pkg_resources
 
 # imports: project
 from bookend import version
-from bookend import index
+from bookend import arg_handler
 from bookend import book_list
 
 
@@ -82,16 +82,16 @@ def main() -> None:
         return
 
     if args.search is not None:
-        index.arg_search(book_list_path, args.search)
+        arg_handler.arg_search(book_list_path, args.search)
 
     if args.list:
-        index.arg_list(book_list_path)
+        arg_handler.arg_list(book_list_path)
 
     if args.add:
-        index.arg_add(book_list_path)
+        arg_handler.arg_add(book_list_path)
 
     if args.checkout is not None:
-        index.arg_checkout(book_list_path, args.checkout)
+        arg_handler.arg_checkout(book_list_path, args.checkout)
 
 
 if __name__ == '__main__':

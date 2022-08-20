@@ -13,6 +13,25 @@ from bookend import book
 from bookend import book_list
 
 
+def arg_add(book_list_path):
+    data = book_list.load(book_list_path)
+    book_item = book.input_book()
+    book_list.add_book(data, book_item)
+    book_list.save(book_list_path, data)
+
+
+def arg_checkout(book_list_path, title):
+    data = book_list.load(book_list_path)
+    book_list.remove_book(data, title)
+    book_list.save(book_list_path, data)
+
+
+def arg_list(book_list_path):
+    data = book_list.load(book_list_path)
+    for book_item in book_list.list_books(data):
+        print(book.formatted(book_item))
+
+
 def arg_search(book_list_path, term):
     data = book_list.load(book_list_path)
     search_term = term.lower()
@@ -36,22 +55,3 @@ def arg_search(book_list_path, term):
 
     for book_item in results:
         print(book_item)
-
-
-def arg_list(book_list_path):
-    data = book_list.load(book_list_path)
-    for book_item in book_list.list_books(data):
-        print(book.formatted(book_item))
-
-
-def arg_add(book_list_path):
-    data = book_list.load(book_list_path)
-    book_item = book.input_book()
-    book_list.add_book(data, book_item)
-    book_list.save(book_list_path, data)
-
-
-def arg_checkout(book_list_path, title):
-    data = book_list.load(book_list_path)
-    book_list.remove_book(data, title)
-    book_list.save(book_list_path, data)
