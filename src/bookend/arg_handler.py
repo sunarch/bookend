@@ -1,9 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8, vim: expandtab:ts=4 -*-
 
-# previous license:
-# Copyright (c) 2016 Anthony Pizzimenti - The MIT License (MIT)
-
 # This Source Code Form is subject to the terms of the Mozilla Public
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -41,14 +38,9 @@ def arg_search(book_list_path, term):
 
         found_in_fields = []
 
-        if search_term in book_item['title'].lower():
-            found_in_fields.append('title')
-
-        if search_term in book_item['author'].lower():
-            found_in_fields.append('author')
-
-        if search_term in book_item['booklist'].lower():
-            found_in_fields.append('booklist')
+        for prop in book.searchable_properties():
+            if search_term in book_item[prop].lower():
+                found_in_fields.append(prop)
 
         if len(found_in_fields) > 0:
             results.append(book.formatted(book_item, found_in_fields))

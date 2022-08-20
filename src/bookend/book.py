@@ -35,6 +35,10 @@ def create_book(title, author, call_number, booklist):
     }
 
 
+def searchable_properties():
+    return {'title', 'author', 'booklist'}
+
+
 def formatted(book, highlight=None):
 
     if not isinstance(highlight, list):
