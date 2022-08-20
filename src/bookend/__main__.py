@@ -15,6 +15,7 @@ import pkg_resources
 # imports: project
 from bookend import version
 from bookend import index
+from bookend import book_list
 
 
 def main() -> None:
@@ -73,23 +74,24 @@ def main() -> None:
 
     args = parser.parse_args()
 
-    index.init()
+    book_list_path = book_list.list_file_path()
+    book_list.init(book_list_path)
 
     if args.version:
         print(f'{version.PROGRAM_NAME} {version.__version__}')
         return
 
     if args.search is not None:
-        index.arg_search(args.search)
+        index.arg_search(book_list_path, args.search)
 
     if args.list:
-        index.arg_list()
+        index.arg_list(book_list_path)
 
     if args.add:
-        index.arg_add()
+        index.arg_add(book_list_path)
 
     if args.checkout is not None:
-        index.arg_checkout(args.checkout)
+        index.arg_checkout(book_list_path, args.checkout)
 
 
 if __name__ == '__main__':

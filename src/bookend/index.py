@@ -8,44 +8,17 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-# imports: library
-import json
-import os.path
-
 # imports: project
 from bookend import book
-from bookend.bookencoder import BookEncoder
+from bookend import book_list
 
 
-def init():
-
-    path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'lists.json')
-
-    # no lists exist -> make a new list
-    if not os.path.isfile(path):
-
-        print('You don\'t have any booklists!')
-
-        books = {
-            'books': []
-        }
-
-        with open(path, 'w', encoding='UTF-8') as fh_list:
-            json.dump(books, fh_list)
-
-        path_last = path.split(os.pathsep)[-1]
-        print('Created new list file at ', path_last)
-
-
-def arg_search(term):
-
+def arg_search(book_list_path, term):
+    data = book_list.load(book_list_path)
     search_term = term.lower()
-
-    decoder = BookEncoder()
-    decoder.decode()
     results = []
 
-    for book_item in decoder.collection:
+    for book_item in book_list.list_books(data):
 
         found_in_fields = []
 
@@ -65,23 +38,20 @@ def arg_search(term):
         print(book_item)
 
 
-def arg_list():
-
-    decoder = BookEncoder()
-    decoder.decode()
-
-    for book_item in decoder.collection:
+def arg_list(book_list_path):
+    data = book_list.load(book_list_path)
+    for book_item in book_list.list_books(data):
         print(book.formatted(book_item))
 
 
-def arg_add():
-
+def arg_add(book_list_path):
+    data = book_list.load(book_list_path)
     book_item = book.input_book()
-    encoder = BookEncoder()
-    encoder.encode(book_item)
+    book_list.add_book(data, book_item)
+    book_list.save(book_list_path, data)
 
 
-def arg_checkout(title):
-
-    decoder = BookEncoder()
-    decoder.remove(title)
+def arg_checkout(book_list_path, title):
+    data = book_list.load(book_list_path)
+    book_list.remove_book(data, title)
+    book_list.save(book_list_path, data)

@@ -9,5 +9,4 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 import bookend.book
-from bookend.bookencoder import BookEncoder
-from bookend.index import init
+import bookend.book_list
