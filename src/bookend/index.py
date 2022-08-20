@@ -58,7 +58,8 @@ def arg_search(term):
         if search_term in book_item['booklist'].lower():
             found_in_fields.append('booklist')
 
-        results.append(book.formatted(book_item, found_in_fields))
+        if len(found_in_fields) > 0:
+            results.append(book.formatted(book_item, found_in_fields))
 
     for book_item in results:
         print(book_item)
