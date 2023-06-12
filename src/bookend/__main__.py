@@ -15,16 +15,21 @@ import libmonty_logging.message as logging_message
 
 # imports: project
 from bookend import version
-from bookend import arg_handler
+from bookend.commands import SUBPARSER_ADDERS, PROCESSORS, COMMANDS
+from bookend.files import db
 
 
 def main() -> None:
+
+    # logging
 
     logging_helper.apply_config(version.PROGRAM_NAME,
                                 version.__version__,
                                 logging_config)
 
     logging_message.program_header(version.PROGRAM_NAME)
+
+    # arguments
 
     parser = ArgumentParser(prog=version.PROGRAM_NAME)
 
@@ -35,54 +40,26 @@ def main() -> None:
         dest='version'
     )
 
-    option_group = parser.add_mutually_exclusive_group()
-
-    option_group.add_argument(
-        '-s', '--search', metavar='TERM',
-        help='search for a term across all lists',
-        dest='search', default=None
-    )
-
-    option_group.add_argument(
-        '-l', '--list',
-        help='prints a list of booklists',
-        action='store_true',
-        dest='list'
-    )
-
-    option_group.add_argument(
-        '-a', '--add',
-        help='add a new book!',
-        action='store_true',
-        dest='add'
-    )
-
-    option_group.add_argument(
-        '-c', '--checkout', metavar='TITLE',
-        help='enter the title of a book, and it\'ll be removed from the list',
-        dest='checkout', default=None
-    )
+    subparsers = parser.add_subparsers(title='Commands', dest='command')
+    for subparser_adder in SUBPARSER_ADDERS:
+        subparser_adder(subparsers)
 
     args = parser.parse_args()
+
+    # processing
 
     if args.version:
         print(f'{version.PROGRAM_NAME} {version.__version__}')
         return
 
-    if args.search is not None:
-        arg_handler.arg_search(args.search)
+    if args.command in COMMANDS:
+        data = db.load()
 
-    if args.list:
-        arg_handler.arg_list()
+        data, to_save = PROCESSORS[args.command](data, args)
 
-    if args.add:
-        arg_handler.arg_add()
-
-    if args.checkout is not None:
-        arg_handler.arg_checkout(args.checkout)
+        if to_save:
+            db.save(data)
 
 
 if __name__ == '__main__':
     main()
-
-# -------------------------------------------------------------------- #
