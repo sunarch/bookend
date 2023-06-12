@@ -10,8 +10,8 @@ from argparse import ArgumentParser
 import logging
 
 # imports: project
-from bookend import book
-from bookend import book_list
+from bookend.structure import book
+from bookend.structure import book_list
 
 
 COMMAND_SEARCH = 'search'
