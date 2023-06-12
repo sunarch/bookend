@@ -16,7 +16,7 @@ import libmonty_logging.message as logging_message
 # imports: project
 from bookend import version
 from bookend.commands import SUBPARSER_ADDERS, PROCESSORS, COMMANDS
-from bookend.files import db
+from bookend.files import config, db
 
 
 def main() -> None:
@@ -51,6 +51,8 @@ def main() -> None:
     if args.version:
         print(f'{version.PROGRAM_NAME} {version.__version__}')
         return
+
+    _ = config.load()
 
     if args.command in COMMANDS:
         data = db.load()
