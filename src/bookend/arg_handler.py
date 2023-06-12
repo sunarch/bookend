@@ -6,31 +6,32 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 # imports: project
+from bookend.files import db
 from bookend import book
 from bookend import book_list
 
 
-def arg_add(book_list_path):
-    data = book_list.load(book_list_path)
+def arg_add():
+    data = db.load()
     book_item = book.input_book()
     book_list.add_book(data, book_item)
-    book_list.save(book_list_path, data)
+    db.save(data)
 
 
-def arg_checkout(book_list_path, title):
-    data = book_list.load(book_list_path)
+def arg_checkout(title):
+    data = db.load()
     book_list.remove_book(data, title)
-    book_list.save(book_list_path, data)
+    db.save(data)
 
 
-def arg_list(book_list_path):
-    data = book_list.load(book_list_path)
+def arg_list():
+    data = db.load()
     for book_item in book_list.list_books(data):
         print(book.formatted(book_item))
 
 
-def arg_search(book_list_path, term):
-    data = book_list.load(book_list_path)
+def arg_search(term):
+    data = db.load()
     search_term = term.lower()
     results = []
 

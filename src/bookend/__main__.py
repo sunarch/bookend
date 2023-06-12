@@ -16,7 +16,6 @@ import libmonty_logging.message as logging_message
 # imports: project
 from bookend import version
 from bookend import arg_handler
-from bookend import book_list
 
 
 def main() -> None:
@@ -66,24 +65,21 @@ def main() -> None:
 
     args = parser.parse_args()
 
-    book_list_path = book_list.list_file_path()
-    book_list.init(book_list_path)
-
     if args.version:
         print(f'{version.PROGRAM_NAME} {version.__version__}')
         return
 
     if args.search is not None:
-        arg_handler.arg_search(book_list_path, args.search)
+        arg_handler.arg_search(args.search)
 
     if args.list:
-        arg_handler.arg_list(book_list_path)
+        arg_handler.arg_list()
 
     if args.add:
-        arg_handler.arg_add(book_list_path)
+        arg_handler.arg_add()
 
     if args.checkout is not None:
-        arg_handler.arg_checkout(book_list_path, args.checkout)
+        arg_handler.arg_checkout(args.checkout)
 
 
 if __name__ == '__main__':
