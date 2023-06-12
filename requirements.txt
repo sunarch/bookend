@@ -1,1 +1,2 @@
+libmonty-logging == 0.1.1
 termcolor == 2.3.0
